@@ -1,0 +1,61 @@
+<!-- templates/payment.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Payment for {{ product_name }}</h1>
+    <form action="{% url 'payment_success' %}" method="POST" id="payment-form">
+        {% csrf_token %}
+        <input type="hidden" name="order_id" value="{{ order_id }}">
+        <input type="hidden" name="amount" value="{{ amount }}">
+        <input type="hidden" name="currency" value="{{ currency }}">
+        <button id="rzp-button">Pay</button>
+    </form>
+    <script>
+        var options = {
+            "key": "{{ settings.RAZORPAY_API_KEY }}", // Your Razorpay Key ID
+            "amount": "{{ amount }}", // Amount in paise
+            "currency": "{{ currency }}",
+            "name": "Product Purchase",
+            "description": "Payment for {{ product_name }}",
+            "order_id": "{{ order_id }}",
+            "handler": function (response){
+                // Handle successful payment here
+                var form = document.getElementById('payment-form');
+                form.appendChild(createHiddenInput('razorpay_payment_id', response.razorpay_payment_id));
+                form.appendChild(createHiddenInput('razorpay_order_id', response.razorpay_order_id));
+                form.appendChild(createHiddenInput('razorpay_signature', response.razorpay_signature));
+                form.submit();
+            },
+            "prefill": {
+                "name": "",
+                "email": "",
+                "contact": ""
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        
+        function createHiddenInput(name, value) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            return input;
+        }
+
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function(e){
+            e.preventDefault();
+            rzp1.open();
+        }
+    </script>
+</body>
+</html>
+
+
+<a href="{% url 'packages'%}">back</a>
