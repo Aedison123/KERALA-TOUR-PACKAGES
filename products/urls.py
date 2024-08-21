@@ -27,4 +27,5 @@ urlpatterns = [
     path('cochin/',views.cochin,name='cochin'),
     
     
+    
 ]

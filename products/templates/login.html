@@ -5,7 +5,7 @@
 </head>
 <body style="font-family: 'Courier New', Courier, monospace; text-align: center; background-color: #e5e5e5; margin: 0; padding: 0;">
     <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 50px;">
-        <h2 style="color: #005b96;">Login to Your Account</h2>
+        <h2 style="color: #005b96;">Login to user</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -13,5 +13,9 @@
         </form>
     </div>
     <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
+    <div class="pagination">
+        <a href="{% url 'signup' %}">Signup</a>
+    </div>
+
 </body>
 </html>

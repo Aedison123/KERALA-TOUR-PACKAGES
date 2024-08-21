@@ -1,15 +1,69 @@
-<!-- templates/payment_success.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Success</title>
+    <style>
+        /* General Body Style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f2f1; /* Light teal background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container Style */
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Heading Style */
+        h1 {
+            color: #004d40; /* Dark teal */
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* Paragraph Style */
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Link Style */
+        .pagination a {
+            color: #00796b; /* Teal color */
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .pagination a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Payment Successful</h1>
-    <p>Thank you for your purchase!</p>
-    <div class="pagination">
-        
-        <a href="{% url 'packages'%}">back</a>
+    <div class="container">
+        <h1>Payment Successful</h1>
+        <p>Thank you for your purchase!</p>
+        <div class="pagination">
+            <a href="{% url 'packages' %}">Back to Packages</a>
+        </div>
     </div>
 </body>
 </html>

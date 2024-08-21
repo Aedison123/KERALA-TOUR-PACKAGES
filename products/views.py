@@ -11,7 +11,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from .forms import ProductForm
 
+# views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Product
+from .forms import ProductForm
+
 def product_list(request):
+    # Only show approved products
     products = Product.objects.all()
     return render(request, 'products/product_list.html', {'products': products})
 
@@ -24,6 +30,7 @@ def add_product(request):
     else:
         form = ProductForm()
     return render(request, 'products/add_product.html', {'form': form})
+
 
 def delete_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -52,7 +59,7 @@ def wayanad(request):
 
 
 def packages(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(is_approved=True)
     return render(request, 'packages.html',{'products': products})
 
 
@@ -236,3 +243,4 @@ def payment_success(request):
         
         return render(request, 'payment_success.html')
     return JsonResponse({'error': 'Invalid request'}, status=400)
+

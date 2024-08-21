@@ -1,19 +1,85 @@
-<!-- templates/payment.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        /* General Body Style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container Style */
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Heading Style */
+        h1 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Button Style */
+        #rzp-button {
+            background-color: #3399cc; /* Razorpay Blue */
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #rzp-button:hover {
+            background-color: #2978b5; /* Darker shade on hover */
+        }
+
+        /* Back Link Style */
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #3399cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Payment for {{ product_name }}</h1>
-    <form action="{% url 'payment_success' %}" method="POST" id="payment-form">
-        {% csrf_token %}
-        <input type="hidden" name="order_id" value="{{ order_id }}">
-        <input type="hidden" name="amount" value="{{ amount }}">
-        <input type="hidden" name="currency" value="{{ currency }}">
-        <button id="rzp-button">Pay</button>
-    </form>
+    <div class="container">
+        <h1>Payment for {{ product_name }}</h1>
+        <form action="{% url 'payment_success' %}" method="POST" id="payment-form">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order_id }}">
+            <input type="hidden" name="amount" value="{{ amount }}">
+            <input type="hidden" name="currency" value="{{ currency }}">
+            <button id="rzp-button">Pay</button>
+        </form>
+        <a href="{% url 'packages' %}" class="back-link">Back to Packages</a>
+    </div>
     <script>
         var options = {
             "key": "{{ settings.RAZORPAY_API_KEY }}", // Your Razorpay Key ID
@@ -56,6 +122,3 @@
     </script>
 </body>
 </html>
-
-
-<a href="{% url 'packages'%}">back</a>
